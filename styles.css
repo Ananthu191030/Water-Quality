@@ -1,0 +1,100 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-size: cover;
+    background-position: center;
+  }
+  
+  nav {
+    background-color: #7269a7;
+    color: #fff;
+    padding: 5px 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+  }
+  
+  nav .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: auto;
+    padding: 0 20px;
+  }
+  
+  nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  nav ul li {
+    display: inline;
+    margin-left: 20px;
+  }
+  
+  nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  nav ul li a:hover {
+    color: #ffd700;
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 80px auto;
+    padding: 0 20px;
+  }
+  
+  #introduction, #test-quality, #articles, #contact {
+    margin-bottom: 40px;
+  }
+  
+  #test-quality form .form-group {
+    margin-bottom: 15px;
+  }
+  
+  #test-quality form label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  #test-quality form input[type="text"],
+  #test-quality form input[type="number"] {
+    width: 10%;
+    padding: 2px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  #test-quality form button {
+    width: 30%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  #qualityResult {
+    margin-top: 20px;
+    font-weight: bold;
+    color: inherit; /* Inherit text color */
+  }
+  
+  
+  #articles p {
+    line-height: 1.5;
+  }
+  
+  #contact p {
+    line-height: 1.5;
+  }
+  
+  
