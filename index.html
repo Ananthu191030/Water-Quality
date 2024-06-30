@@ -5,29 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Water Quality Predictor</title>
   <link rel="stylesheet" href="styles.css">
-  
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="icon" href="favicon.png" type="image/x-icon">
-  
+  <script src="/script.js" defer></script>
 </head>
-<script>
-  window.watsonAssistantChatOptions = {
-    integrationID: "312e2aeb-c16c-450f-a4db-23284ae5ac2f", // The ID of this integration.
-    region: "us-south", // The region your integration is hosted in.
-    serviceInstanceID: "eb94aa72-72a8-45e0-8de1-ea0bb469adfd", // The ID of your service instance.
-    onLoad: async (instance) => { await instance.render(); }
-  };
-  setTimeout(function(){
-    const t=document.createElement('script');
-    t.src="https://web-chat.global.assistant.watson.appdomain.cloud/versions/" + (window.watsonAssistantChatOptions.clientVersion || 'latest') + "/WatsonAssistantChatEntry.js";
-    document.head.appendChild(t);
-  });
-</script>
 <body style="background-image: url('water1.webp');">
   <!-- Navigation Bar -->
   <nav>
     <div class="container">
-      <!--<h1>Water Quality Predictor</h1> -->
       <img src="aQua_guard__1_-removebg-preview.png" alt="" class="imge">
       <ul>
         <li><a href="#" onclick="loadHomePage()">Home</a></li>
@@ -55,8 +40,7 @@
       <!-- Water Quality Test Section -->
       <h2>Test Your Water Quality</h2>
       <section id="test-quality">
-        
-        <form id="waterQualityForm">
+        <form id="waterQualityForm" onsubmit="submitForm(); return false;">
           <div class="form-group">
             <label for="state">State</label>
             <input type="text" id="state" name="state" required>
@@ -93,10 +77,9 @@
             <label for="total_coliform">Total Coliform (MPN/100ml)</label>
             <input type="number" id="total_coliform" name="total_coliform" required>
           </div>
-          <button type="button" onclick="calculateWaterQuality()">Test</button>
+          <button type="button" onclick="submitForm()">Test</button>
         </form>
         <div id="output">Prediction results will be displayed here.</div>
-          
         <div id="qualityResult"></div>
       </section>
 
@@ -106,19 +89,19 @@
         <p>Placeholder for your articles content. You can add your articles here.</p>
         <h3>Understanding Water Quality: A Step Towards a Cleaner Future</h3>
 
-    <p>Water is an essential resource that sustains life, ecosystems, and economies. However, increasing pollution levels threaten this precious commodity, making water quality monitoring more crucial than ever. Our advanced water pollution predictor app, <strong>[App Name]</strong>, empowers individuals and communities with the knowledge and tools needed to protect and preserve water sources.</p>
+        <p>Water is an essential resource that sustains life, ecosystems, and economies. However, increasing pollution levels threaten this precious commodity, making water quality monitoring more crucial than ever. Our advanced water pollution predictor app, <strong>AquaGuard</strong>, empowers individuals and communities with the knowledge and tools needed to protect and preserve water sources.</p>
 
-    <h3>The Importance of Water Quality Monitoring</h3>
+        <h3>The Importance of Water Quality Monitoring</h3>
 
-    <p>Water quality monitoring involves evaluating the physical, chemical, and biological characteristics of water to ensure it is safe for consumption, recreation, and environmental health. Contaminants such as chemicals, heavy metals, and pathogens can pose serious risks to human health and the environment. By regularly monitoring water quality, we can identify pollution sources, assess their impact, and take proactive measures to mitigate them.</p>
+        <p>Water quality monitoring involves evaluating the physical, chemical, and biological characteristics of water to ensure it is safe for consumption, recreation, and environmental health. Contaminants such as chemicals, heavy metals, and pathogens can pose serious risks to human health and the environment. By regularly monitoring water quality, we can identify pollution sources, assess their impact, and take proactive measures to mitigate them.</p>
 
-    <h3>Join the Movement</h3>
+        <h3>Join the Movement</h3>
 
-    <p>Water pollution is a global challenge that requires collective action. By using <strong>[App Name]</strong>, you become a part of a dedicated community striving to ensure clean and safe water for all. Whether you're a concerned citizen, a policy maker, or an environmental enthusiast, <strong>[App Name]</strong> provides the tools and information you need to make a difference.</p>
+        <p>Water pollution is a global challenge that requires collective action. By using <strong>AquaGuard</strong>, you become a part of a dedicated community striving to ensure clean and safe water for all. Whether you're a concerned citizen, a policy maker, or an environmental enthusiast, <strong>AquaGuard</strong> provides the tools and information you need to make a difference.</p>
 
-    <h3>Conclusion</h3>
+        <h3>Conclusion</h3>
 
-    <p>In a world where water quality is increasingly at risk, <strong>[App Name]</strong> stands as a beacon of hope and innovation. Together, we can monitor, predict, and prevent water pollution, ensuring a healthier and more sustainable future. Download <strong>[App Name]</strong> today and join us in our mission to protect our most vital resource.</p>
+        <p>In a world where water quality is increasingly at risk, <strong>AquaGuard</strong> stands as a beacon of hope and innovation. Together, we can monitor, predict, and prevent water pollution, ensuring a healthier and more sustainable future. Download <strong>AquaGuard</strong> today and join us in our mission to protect our most vital resource.</p>
       </section>
 
       <!-- Contact Section -->
@@ -126,47 +109,77 @@
         <h2>Contact</h2>
         <p>For inquiries, please contact us at <strong>toll-free-number</strong>.</p>
         <p>If you have any questions or need further information, please feel free to contact us:</p>
-        <p>Email: <a href="mailto:info@[appname].com">info@[appname].com</a></p>
-        <p>Phone: +1 (123) 456-7890</p>
-        <p>Address: 123 Water Quality Lane, Clean City, CC 12345</p>
-      </section>
-    </div>
-  </main>
-  <footer>
-    <div class="footercontainer">
-        <div class="socialicons">
-            <a href=""><i class="fa-brands fa-facebook"></i></a>
-            <a href=""><i class="fa-brands fa-instagram"></i></a>
-            <a href=""><i class="fa-brands fa-twitter"></i></a>
-            <a href=""><i class="fa-brands fa-google-plus"></i></a>
-            <a href=""><i class="fa-brands fa-youtube"></i></a>
-        </div>
-    </div>
-    <div class="footernav">
-        <ul>
-            <li><a href="">Home</a></li>
-            <li><a href="">News</a></li>
-            <li><a href="">About</a></li>
-            <li><a href="">Contact us</a></li>
-            <li><a href="">Our Team</a></li>
-        </ul>
-    </div>
-    <div class="footerbottom">
-        <p>Copyright &copy;2024; Designed by <span class="designer">Ananthu and Krishnendu</span></p>
-    </div>
-</footer>
-
-  <script src="script.js"></script>
-  <script>
-    document.getElementById('predictForm').addEventListener('submit', function(event) {
-        event.preventDefault();
-
-        const inputData = document.getElementById('inputData').value;
-        const outputBox = document.getElementById('output');
-
-        // Simulate fetching prediction
-        outputBox.innerText = `Prediction: Simulated result for input "${inputData}"`;
-    });
-</script>
-</body>
-</html>
+        <p>Email: <a href="mailto:info@aquaguard.com">info@aquaguard.com</
+          a></p>
+          <p>Phone: +1 (123) 456-7890</p>
+          <p>Address: 123 Water Quality Lane, Clean City, CC 12345</p>
+          </section>
+          </div>
+          
+            </main>
+            <footer>
+              <div class="footercontainer">
+                  <div class="socialicons">
+                      <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                      <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                      <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                      <a href="#"><i class="fa-brands fa-google-plus"></i></a>
+                      <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                  </div>
+              </div>
+              <div class="footernav">
+                  <ul>
+                      <li><a href="#">Home</a></li>
+                      <li><a href="#">News</a></li>
+                      <li><a href="#">About</a></li>
+                      <li><a href="#">Contact us</a></li>
+                      <li><a href="#">Our Team</a></li>
+                  </ul>
+              </div>
+              <div class="footerbottom">
+                  <p>Copyright &copy;2024; Designed by <span class="designer">Ananthu and Krishnendu</span></p>
+              </div>
+            </footer>
+            <script>
+              async function submitForm() {
+                  const formData = new FormData(document.getElementById('waterQualityForm'));
+              
+                  const response = await fetch('http://127.0.0.1:5000/predict', {
+                      method: 'POST',
+                      body: formData,
+                  });
+              
+                  if (!response.ok) {
+                      alert('Network response was not ok ' + response.statusText);
+                      return;
+                  }
+              
+                  const result = await response.json();
+                  
+                  let quality;
+                  switch (result.quality) {
+                      case 5:
+                          quality = 'Excellent Quality';
+                          break;
+                      case 4:
+                          quality = 'Good Quality';
+                          break;
+                      case 3:
+                          quality = 'Fair Quality';
+                          break;
+                      case 2:
+                          quality = 'Poor Quality';
+                          break;
+                      case 1:
+                          quality = 'Very Poor Quality';
+                          break;
+                      default:
+                          quality = 'Unknown Quality';
+                  }
+                  
+                  document.getElementById('output').innerText = `Prediction: ${quality}`;
+              }
+              </script>
+              
+          </body>
+          </html>
