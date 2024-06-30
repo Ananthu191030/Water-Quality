@@ -5,12 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Water Quality Predictor</title>
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
-<script src="{{ url_for('static', filename='script.js') }}" defer></script>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link rel="icon" href="favicon.png" type="image/x-icon">
-  <script src="/script.js" defer></script>
+  <link rel="icon" href="{{ url_for('static', filename='favicon.png') }}" type="image/x-icon">
+  
 </head>
+
 <script>
   window.watsonAssistantChatOptions = {
     integrationID: "312e2aeb-c16c-450f-a4db-23284ae5ac2f", // The ID of this integration.
@@ -24,11 +24,11 @@
     document.head.appendChild(t);
   });
 </script>
-<body style="background-image: url('water1.webp');">
+<body>
   <!-- Navigation Bar -->
   <nav>
     <div class="container">
-      <img src="aQua_guard__1_-removebg-preview.png" alt="" class="imge">
+      <img src="{{ url_for('static', filename='aQua_guard__1_-removebg-preview.png') }}" alt="Aqua Guard Logo" class="imge">
       <ul>
         <li><a href="#" onclick="loadHomePage()">Home</a></li>
         <li><a href="#articles">Articles</a></li>

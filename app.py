@@ -50,8 +50,7 @@ def predict():
         }
 
         # IBM Cloud endpoint for model predictions
-        url = 'https://us-south.ml.cloud.ibm.com/ml/v4/deployments/771c789b-ad55-4538-8cae-6947296757f4/predictions?version=2021-05-01'
-
+        url = 'https://us-south.ml.cloud.ibm.com/ml/v4/deployments/faff61af-f5a3-4e4e-9d72-079292d151ed/predictions?version=2021-05-01'
         # Make request to IBM Cloud
         response = requests.post(url, json=payload_scoring, headers={'Authorization': 'Bearer ' + mltoken})
         response.raise_for_status()
