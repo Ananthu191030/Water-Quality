@@ -55,48 +55,49 @@
       <!-- Water Quality Test Section -->
       <h2>Test Your Water Quality</h2>
       <section id="test-quality">
-        <form id="waterQualityForm" method="post" action="/predict" onsubmit="submitForm(); return false;">
-          <div class="form-group">
-            <label for="state">State</label>
-            <input type="text" id="state" name="state" required>
-          </div>
-          <div class="form-group">
-            <label for="temp">Temp (°C)</label>
-            <input type="number" id="temp" name="temp" required>
-          </div>
-          <div class="form-group">
-            <label for="do">D.O. (mg/l)</label>
-            <input type="number" id="do" name="do" step="any" required>
-          </div>
-          <div class="form-group">
-            <label for="ph">PH</label>
-            <input type="number" id="ph" name="ph" step="any" required>
-          </div>
-          <div class="form-group">
-            <label for="conductivity">Conductivity (µhos/cm)</label>
-            <input type="number" id="conductivity" name="conductivity" required>
-          </div>
-          <div class="form-group">
-            <label for="bod">B.O.D. (mg/l)</label>
-            <input type="number" id="bod" name="bod" step="any" required>
-          </div>
-          <div class="form-group">
-            <label for="nitrate">Nitrate/Nitrite (mg/l)</label>
-            <input type="number" id="nitrate" name="nitrate" step="any" required>
-          </div>
-          <div class="form-group">
-            <label for="fecal_coliform">Fecal Coliform (MPN/100ml)</label>
-            <input type="number" id="fecal_coliform" name="fecal_coliform" required>
-          </div>
-          <div class="form-group">
-            <label for="total_coliform">Total Coliform (MPN/100ml)</label>
-            <input type="number" id="total_coliform" name="total_coliform" required>
-          </div>
-          <button type="button" onclick="submitForm()">Test</button>
+        <form id="waterQualityForm" method="post" action="{{ url_for('predict') }}">
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+                <label for="state">State</label>
+                {{ form.STATE }}
+            </div>
+            <div class="form-group">
+                <label for="temp">Temp (°C)</label>
+                {{ form.Temp }}
+            </div>
+            <div class="form-group">
+                <label for="do">D.O. (mg/l)</label>
+                {{ form.DO }}
+            </div>
+            <div class="form-group">
+                <label for="ph">PH</label>
+                {{ form.PH }}
+            </div>
+            <div class="form-group">
+                <label for="conductivity">Conductivity (µhos/cm)</label>
+                {{ form.CONDUCTIVITY }}
+            </div>
+            <div class="form-group">
+                <label for="bod">B.O.D. (mg/l)</label>
+                {{ form.BOD }}
+            </div>
+            <div class="form-group">
+                <label for="nitrate">Nitrate/Nitrite (mg/l)</label>
+                {{ form.NITRATE_NITRITE }}
+            </div>
+            <div class="form-group">
+                <label for="fecal_coliform">Fecal Coliform (MPN/100ml)</label>
+                {{ form.FECAL_COLIFORM }}
+            </div>
+            <div class="form-group">
+                <label for="total_coliform">Total Coliform (MPN/100ml)</label>
+                {{ form.TOTAL_COLIFORM }}
+            </div>
+            <button type="submit">Test</button>
         </form>
         <div id="output">Prediction results will be displayed here.</div>
-        <div id="qualityResult"></div>
-      </section>
+    </section>
+
 
       <!-- Articles Section -->
       <section id="articles">
@@ -199,7 +200,7 @@
     }
 }
 
-              </script>
+             </script>
               
           </body>
           </html>
