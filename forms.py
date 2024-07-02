@@ -4,13 +4,13 @@ from wtforms.validators import DataRequired
 
 class PredictForm(FlaskForm):
     STATE = StringField('State', validators=[DataRequired()])
-    Temp = FloatField('Temperature', validators=[DataRequired()])
-    DO = FloatField('D.O (mg/l)', validators=[DataRequired()])
-    PH = FloatField('pH', validators=[DataRequired()])
-    CONDUCTIVITY = FloatField('Conductivity (µhos/cm)', validators=[DataRequired()])
-    BOD = FloatField('B.O.D (mg/l)', validators=[DataRequired()])
-    NITRATE_NITRITE = FloatField('Nitrate+Nitrite (mg/l)', validators=[DataRequired()])
-    FECAL_COLIFORM = FloatField('Fecal Coliform (MPN/100ml)', validators=[DataRequired()])
-    TOTAL_COLIFORM = FloatField('Total Coliform (MPN/100ml)Mean', validators=[DataRequired()])
+    Temp = FloatField('Temp', validators=[DataRequired()])
+    DO= FloatField('D.O.', validators=[DataRequired()])
+    PH = FloatField('PH', validators=[DataRequired()])
+    CONDUCTIVITY = FloatField('CONDUCTIVITY', validators=[DataRequired()])
+    BOD= FloatField('B.O.D.', validators=[DataRequired()])
+    NITRATE_NITRITE = FloatField('NITRATE_NITRITE', validators=[DataRequired()])
+    FECAL_COLIFORM = FloatField('FECAL_COLIFORM', validators=[DataRequired()])
+    TOTAL_COLIFORM = FloatField('TOTAL_COLIFORM', validators=[DataRequired()])
     submit = SubmitField('Predict')
-    result = None  # To store the prediction result
+    result = ""  # To store the prediction result

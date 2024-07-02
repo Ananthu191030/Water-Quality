@@ -1,10 +1,12 @@
 body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  background-size: cover;
-  background-position: center;
+  /* Specify the background image URL and properties */
+  background-image: url('waterback.avif'); /* Replace with your image path */
+  background-size: cover; /* Cover the entire background */
+  background-repeat: no-repeat; /* Do not repeat the background image */
+  background-position: center center; /* Center the background image */
+  background-attachment: fixed; /* Keep the background fixed while scrolling */
 }
+
 
 nav {
   background-color: #0c043a;
@@ -151,13 +153,14 @@ text-align: center;
 padding: 14px 16px;
 text-decoration: none;
 }
-footer{
-  
-height: 250px;
-background-color: black;
-width: 100%;
-margin-top: 200px;
+footer {
+  height: 250px;
+  background-color: black;
+  width: 100%; /* Position the footer */
+  bottom: 0; /* Stick it to the bottom */
+  left: 0; /* Align it to the left */
 }
+
 
 #waterQualityForm{
 width: 400px;
@@ -216,10 +219,12 @@ h3{
   color: #19084f;
 }
 #output {
-   border: 1px solid #ccc;
+  border: 1px solid #000; /* Black border */
   padding: 10px;
   margin-top: 20px;
   height: 100px;
   overflow-y: auto;
   background-color: #f9f9f9;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Box shadow */
+  border-radius: 5px; /* Rounded corners */
 }

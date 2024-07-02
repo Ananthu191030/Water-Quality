@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify, render_template,json
 from flask_wtf.csrf import CSRFProtect, generate_csrf
 from flask_cors import CORS
 import requests
@@ -9,8 +9,8 @@ from requests.packages.urllib3.util.retry import Retry
 
 app = Flask(__name__)
 CORS(app)
-csrf = CSRFProtect(app)
-app.secret_key = 'c6558f3a-8432-435b-8dfb-2db0a145d88b'  # You will need a secret key
+
+app.secret_key = 'fdbc4b27-47ef-4510-bc93-d7198a2b212a'  # You will need a secret key
 
 # Replace with your IBM Cloud API Key
 API_KEY = "qDVtrAXtDMZMnu6s0_35iklKtpLhCnspVT6Gjgfc76Jq"
@@ -65,14 +65,16 @@ def predict():
             data = {
                 "STATE": form.STATE.data,
                 "Temp": float(form.Temp.data),
-                "D.O(mg/l)": float(form.DO.data),
+                "D.O.": float(form.DO.data),
                 "PH": float(form.PH.data),
-                "CONDUCTIVITY (µhos/cm)": float(form.CONDUCTIVITY.data),
-                "B.O.D. (mg/l)": float(form.BOD.data),
-                "NITRATENAN N+ NITRITENANN (mg/l)": float(form.NITRATE_NITRITE.data),
-                "FECAL COLIFORM (MPN/100ml)": float(form.FECAL_COLIFORM.data),
-                "TOTAL COLIFORM (MPN/100ml)Mean": float(form.TOTAL_COLIFORM.data)
+                "CONDUCTIVITY": float(form.CONDUCTIVITY.data),
+                "B.O.D.": float(form.BOD.data),
+                "NITRATENAN": float(form.NITRATE_NITRITE.data),
+                "FECAL COLIFORM": float(form.FECAL_COLIFORM.data),
+                "TOTAL COLIFORM": float(form.TOTAL_COLIFORM.data)
             }
+            userInput=[]
+            userInput.append(data)
 
             logging.debug(f"Form data: {data}")
 
@@ -84,10 +86,10 @@ def predict():
             payload_scoring = {
                 "input_data": [
                     {
-                        "fields": [
-                            "STATE", "Temp", "D.O(mg/l)", "PH", "CONDUCTIVITY (µhos/cm)",
-                            "B.O.D. (mg/l)", "NITRATENAN N+ NITRITENANN (mg/l)",
-                            "FECAL COLIFORM (MPN/100ml)", "TOTAL COLIFORM (MPN/100ml)Mean"
+                        "fields": [ 
+                            "STATE", "Temp", "D.O.", "PH", "CONDUCTIVITY",
+                            "B.O.D.", "NITRATENAN",
+                            "FECAL COLIFORM", "TOTAL COLIFORM"
                         ],
                         "values": [
                             [
@@ -108,7 +110,7 @@ def predict():
             logging.debug(f"Payload: {payload_scoring}")
 
             # IBM Cloud endpoint for model predictions
-            url = 'https://us-south.ml.cloud.ibm.com/ml/v4/deployments/c6558f3a-8432-435b-8dfb-2db0a145d88b/predictions?version=2021-05-01'
+            url = 'https://us-south.ml.cloud.ibm.com/ml/v4/deployments/fdbc4b27-47ef-4510-bc93-d7198a2b212a/predictions?version=2021-05-01'
 
             # Create session with retry logic
             session = create_session()
@@ -118,23 +120,33 @@ def predict():
             }
             
             # Adjust timeout as needed (connect_timeout, read_timeout)
-            response = session.request('POST', url, json=payload_scoring, headers=headers, timeout=(5, 30))
+            response = requests.post( url, json=payload_scoring, headers=headers, timeout=(5, 30))
             response.raise_for_status()
 
             logging.debug(f"Response: {response.json()}")
 
             # Process response and return prediction as JSON
             output = response.json()
-            prediction = output['predictions'][0]['values'][0][0]  # Assuming the prediction is in this format
-            form.result = round(prediction, 2)  # Return the result to the form
-            return render_template('index.html', form=form)
+            #output=json.loads(response.txt)
+            print(output)
 
-        except Exception as e:
-            logging.error(f"Error: {e}", exc_info=True)
-            return jsonify({'error': str(e)}), 500
-    else:
-        # If the form is not valid, render the template with the form again
-        return render_template('index.html', form=form)
+    # Check if 'predictions' key exists in output
+            if 'predictions' in output and output['predictions']:
+                 prediction_value = output['predictions'][0]['values'][0][0]
+                 rounded_prediction = round(prediction_value, 2)
 
-if __name__ == '__main__':
+        # Assign the prediction result to form attribute for display
+                 form.result =  rounded_prediction
+                 return jsonify({'quality': rounded_prediction})
+                 return render_template('index.html', form=form)
+            else:
+                  error_message = "No predictions found in the response."
+                  print(error_message)
+                  return render_template('index.html', form=form, error=error_message)
+
+        except requests.exceptions.RequestException as e:
+         error_message = f"Error fetching prediction: {e}"
+         print(error_message)
+         return render_template('index.html', form=form, error=error_message)
+if __name__ == "__main__":
     app.run(debug=True)

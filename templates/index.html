@@ -24,6 +24,60 @@
     document.head.appendChild(t);
   });
 </script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+      document.getElementById('waterQualityForm').addEventListener('submit', async function(event) {
+          event.preventDefault();  // Prevent the default form submission
+          
+          // Collect the form data
+          const formData = new FormData(event.target);
+          const formProps = Object.fromEntries(formData);
+
+          try {
+              // Make the AJAX request to the Flask server
+              const response = await fetch('http://127.0.0.1:5000/predict', {
+                  method: 'POST',
+                  headers: {
+                      'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify(formProps)
+              });
+
+              // Process the response
+              const result = await response.json();
+
+              // Update the output field with the prediction result
+              if (response.ok) {
+                  let quality;
+                  switch (result.quality) {
+                      case 5:
+                          quality = 'Excellent Quality';
+                          break;
+                      case 4:
+                          quality = 'Good Quality';
+                          break;
+                      case 3:
+                          quality = 'Fair Quality';
+                          break;
+                      case 2:
+                          quality = 'Poor Quality';
+                          break;
+                      case 1:
+                          quality = 'Very Poor Quality';
+                          break;
+                      default:
+                          quality = 'Unknown Quality';
+                  }
+                  document.getElementById('output').textContent = `Prediction Quality: ${quality}`;
+              } else {
+                  document.getElementById('output').textContent = `Error: ${result.error}`;
+              }
+          } catch (error) {
+              document.getElementById('output').textContent = `Error: ${error.message}`;
+          }
+      });
+  });
+</script>
 <body>
   <!-- Navigation Bar -->
   <nav>
@@ -62,40 +116,44 @@
                 {{ form.STATE }}
             </div>
             <div class="form-group">
-                <label for="temp">Temp (°C)</label>
-                {{ form.Temp }}
-            </div>
-            <div class="form-group">
-                <label for="do">D.O. (mg/l)</label>
-                {{ form.DO }}
-            </div>
-            <div class="form-group">
-                <label for="ph">PH</label>
-                {{ form.PH }}
-            </div>
-            <div class="form-group">
-                <label for="conductivity">Conductivity (µhos/cm)</label>
-                {{ form.CONDUCTIVITY }}
-            </div>
-            <div class="form-group">
-                <label for="bod">B.O.D. (mg/l)</label>
-                {{ form.BOD }}
-            </div>
-            <div class="form-group">
-                <label for="nitrate">Nitrate/Nitrite (mg/l)</label>
-                {{ form.NITRATE_NITRITE }}
-            </div>
-            <div class="form-group">
-                <label for="fecal_coliform">Fecal Coliform (MPN/100ml)</label>
-                {{ form.FECAL_COLIFORM }}
-            </div>
-            <div class="form-group">
-                <label for="total_coliform">Total Coliform (MPN/100ml)</label>
-                {{ form.TOTAL_COLIFORM }}
-            </div>
+              <label for="temp">Temp (°C)</label>
+              {{ form.Temp(type="number", class="form-control", step="any", min="0") }}
+          </div>
+          <div class="form-group">
+              <label for="do">D.O. (mg/l)</label>
+              {{ form.DO(type="number", class="form-control", step="any", min="0") }}
+          </div>
+          <div class="form-group">
+              <label for="ph">PH</label>
+              {{ form.PH(type="number", class="form-control", step="any", min="0") }}
+          </div>
+          <div class="form-group">
+              <label for="conductivity">Conductivity (µhos/cm)</label>
+              {{ form.CONDUCTIVITY(type="number", class="form-control", step="any", min="0") }}
+          </div>
+          <div class="form-group">
+              <label for="bod">B.O.D. (mg/l)</label>
+              {{ form.BOD(type="number", class="form-control", step="any", min="0") }}
+          </div>
+          <div class="form-group">
+              <label for="nitrate">Nitrate/Nitrite (mg/l)</label>
+              {{ form.NITRATE_NITRITE(type="number", class="form-control", step="any", min="0") }}
+          </div>
+          <div class="form-group">
+              <label for="fecal_coliform">Fecal Coliform (MPN/100ml)</label>
+              {{ form.FECAL_COLIFORM(type="number", class="form-control", step="any", min="0") }}
+          </div>
+          <div class="form-group">
+              <label for="total_coliform">Total Coliform (MPN/100ml)</label>
+              {{ form.TOTAL_COLIFORM(type="number", class="form-control", step="any", min="0") }}
+          </div>
+          
             <button type="submit">Test</button>
-        </form>
-        <div id="output">Prediction results will be displayed here.</div>
+       
+        <div id="output">Prediction results will be displayed here.
+                         The Quality ranges are:
+                         Excellent, Good, Fair, Poor, Very poor </div>
+      </form>
     </section>
 
 
@@ -156,51 +214,6 @@
                   <p>Copyright &copy;2024; Designed by <span class="designer">Ananthu and Krishnendu</span></p>
               </div>
             </footer>
-            <script>
-             async function submitForm() {
-    const formData = new FormData(document.getElementById('waterQualityForm'));
-
-    try {
-        const response = await fetch('http://127.0.0.1:5000/predict', {
-            method: 'POST',
-            body: formData,
-        });
-
-        if (!response.ok) {
-            throw new Error('Network response was not ok ' + response.statusText);
-        }
-
-        const result = await response.json();
-
-        let quality;
-        switch (result.quality) {
-            case 5:
-                quality = 'Excellent Quality';
-                break;
-            case 4:
-                quality = 'Good Quality';
-                break;
-            case 3:
-                quality = 'Fair Quality';
-                break;
-            case 2:
-                quality = 'Poor Quality';
-                break;
-            case 1:
-                quality = 'Very Poor Quality';
-                break;
-            default:
-                quality = 'Unknown Quality';
-        }
-
-        document.getElementById('output').innerText = `Prediction: ${quality}`;
-    } catch (error) {
-        alert('Error submitting the form. Please try again later.');
-        console.error('Error:', error);
-    }
-}
-
-             </script>
-              
+           
           </body>
           </html>
