@@ -1,15 +1,7 @@
 Water Quality Prediction App
 This Flask-based web application collects environmental data such as temperature, pH, and pollutant levels, and sends it to an IBM Cloud Machine Learning model to predict water quality. The app features a form interface for users to input data, and it displays the predicted water quality score based on the submitted information.
 
-Table of Contents
-Features
-Technologies
-Setup and Installation
-Usage
-Form Parameters
-IBM Cloud Integration
-Error Handling
-License
+
 Features
 Collects water quality data through a user-friendly form.
 Sends the data to an IBM Cloud Machine Learning API for predictions.
@@ -57,12 +49,8 @@ app.secret_key = 'your_secret_key'
 API_KEY = "your_ibm_cloud_api_key"
 Run the Application:
 
-bash
-Copy code
-flask run
-By default, the app will run on http://127.0.0.1:5000/.
 
-Usage
+
 Once the application is running, access it via your browser.
 Fill out the form with the required environmental parameters (e.g., temperature, pH, conductivity, etc.).
 Click the Predict button to submit the data to the model.
